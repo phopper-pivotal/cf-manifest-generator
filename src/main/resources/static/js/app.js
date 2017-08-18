@@ -26,11 +26,7 @@ $( document ).ready(function() {
                     'https://github.com/friism/heroku-buildpack-mono', 'https://github.com/davidl-zend/zend-server-mysql-buildpack-dev',
                     'https://github.com/tsl0922/java-buildpack', 'https://github.com/glyn/virgo-buildpack', 'https://github.com/heroku/heroku-buildpack-php',
                     'https://github.com/iphoting/heroku-buildpack-php-tyler', 'https://github.com/heroku/heroku-buildpack-scala'];
-  var domains = ['mybluemix.net', 'cfapps.io'];
-  
-  //***************************************************
-  // U T I L I T Y  F U N C T I O N S
-  //***************************************************
+  var domains = ['cfapps.pez.pivotal.io', 'pezapp.io'];
   
   function htmlEncode(value){
     //create a in-memory div, set it's inner text(which jQuery automatically encodes)
@@ -86,10 +82,6 @@ $( document ).ready(function() {
     };
   };
   
-  //***************************************************
-  // K E Y  L I S T E N E R S
-  //***************************************************
-  
   $('#inputServiceName').keyup(function(e) {
     if($(this).val() !== '') {
       $('#serviceAddBtn').removeAttr('disabled');
@@ -122,10 +114,6 @@ $( document ).ready(function() {
   
   $('#inputEnvName').keyup(envKeyUp);
   $('#inputEnvValue').keyup(envKeyUp);
-  
-  //***************************************************
-  // C L I C K  L I S T E N E R S
-  //***************************************************
   
   $('#serviceAddBtn').click(function() {
     var serviceName = htmlEncode($('#inputServiceName').val());
@@ -204,10 +192,6 @@ $( document ).ready(function() {
   } else {
     $('#hostFormGroup').show();
   }
-  
-  //***************************************************
-  // T Y P E A H E A D
-  //***************************************************
   
   $('#inputDomain').typeahead({
     hint: true,

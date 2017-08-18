@@ -10,7 +10,7 @@ find the manifest file and use the values within it to deploy your application.
 
 ## Getting The Source
 
-    git clone git@github.com:IBM-Bluemix/cf-manifest-generator.git
+    git clone https://github.com/phopper-pivotal/cf-manifest-generator.git
 
 ## Building and Deploying
 
@@ -28,21 +28,10 @@ To run the application locally run
 
 Then open your favorite browser and navigate to http://localhost:8080.
 
-You can also deploy this application to BlueMix or any Cloud Foundry deployment.  To deploy the application
-to BlueMix run
+You can also deploy this application to Cloud Foundry deployment.  To deploy the application
+to CF
 
-    mvn -P deploy -Dorg=organization -Dspace=space
-
-To execute this command successfully you will need to make sure you have configured your settings.xml file with
-your username and password for BlueMix.  See the Cloud Foundry Maven plugin 
-[documentation](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-maven-plugin#security-and-storing-of-cloud-foundry-credentials) 
-for details on how to do this.  The ID of server this project uses is BlueMix.  If you want to use something 
-different you will need to update the deploy profile in the POM.  If you want to use a Cloud Foundry instance 
-other than BlueMix you will need to change the target property in the deploy profile of the POM.
-
-## License
-
-See LICENSE file in the root of the repository.
+    cf push
 
 ## Dependencies
 
