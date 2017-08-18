@@ -2,7 +2,9 @@
 .project
 .settings/
 target/
+.idea/
 *.class
+*.iml
 
 # Package Files #
 *.jar
