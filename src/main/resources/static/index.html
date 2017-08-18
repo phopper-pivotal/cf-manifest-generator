@@ -150,7 +150,7 @@
               <input class="form-control" id="inputTimeout" placeholder="60" name="timeout"
               data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" 
               data-content="Specify the timeout attribute to give your application more time to start.  By default every application is given 60 seconds.  The timeout cannot be more than 180 seconds.">
-              <span class="input-group-addon">Seconds</span>
+              <span class="input-group-addon">in Seconds</span>
             </div>
             <div class="alert alert-danger" id="timeoutAlert" style="display: none">
   				<strong>Warning!</strong> This field must only contain numbers.
@@ -165,6 +165,74 @@
             data-content="Specify a custom start command for your application.">
           </div>
         </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">No Route?</label>
+              <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox" id="route" name="route"
+                                 data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+                                 data-content="Specifies if you would like your application to have no route.">
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Health Check HTTP Endpoint</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputHealthCheckHttpEndpoint" placeholder="node app.js" name="healthCheckHttpEndpoint"
+                         data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                         data-content="Specify a custom start health check HTTP endpoint for your application.">
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Health Check HTTP Endpoint</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputHealthCheckType" placeholder="node app.js" name="healthCheckType"
+                         data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                         data-content="Specify a custom start health check type for your application.">
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">No Hostname</label>
+              <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                      <input type="checkbox" id="noHostname" name="noHostname"
+                             data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+                             data-content="Sepcifies if you would like your application to have no hostname.">
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Random route?</label>
+              <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                      <input type="checkbox" id="randomRoute" name="randomRoute"
+                             data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+                             data-content="Sepcifies if you would like your application to have a random route.">
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Disk Quota</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputdiskQuota" placeholder="node app.js" name="diskQuota"
+                         data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                         data-content="Specify a custom disk quota for your application.">
+              </div>
+          </div>
+          <div class="form-group">
+          <label class="col-sm-2 control-label">Stack</label>
+          <div class="col-sm-10">
+            <select id="inputStack" class="form-control" name="stack"
+                    data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                    data-content="Specify the stack needed to run your app.">
+              <option value="cflinuxfs2">cflinuxfs2</option>
+              <option value="windows2012R2">windows2012R2</option>
+              <option value="lucid64">lucid64</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">Services</label>
           <div class="col-sm-10">
@@ -176,6 +244,39 @@
               </div>
           </div>
         </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Domains</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputDomains" placeholder="domains"
+                         data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                         data-content="Specify a set of shared multiple domains.">
+                  <div class="addBtn">
+                      <button class="btn btn-success" id="domainsAddBtn" type="button" disabled="disabled">Add</button>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Hosts</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputHosts" placeholder="hosts"
+                         data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                         data-content="Provide multiple hostnames, or subdomains. Each hostname generates a unique route for the app.">
+                  <div class="addBtn">
+                      <button class="btn btn-success" id="hostsAddBtn" type="button" disabled="disabled">Add</button>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Routes</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputRoutes" placeholder="routes"
+                         data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                         data-content="Provide multiple HTTP and TCP routes. Each route for this app is created if it does not already exist.">
+                  <div class="addBtn">
+                      <button class="btn btn-success" id="routesAddBtn" type="button" disabled="disabled">Add</button>
+                  </div>
+              </div>
+          </div>
         <div class="form-group" id="servicesFormGroup" style="display: none;">
           <label class="col-sm-2 control-label"></label>
           <div class="col-sm-10">
@@ -183,6 +284,27 @@
             <div id="services"></div>
           </div>
         </div>
+          <div class="form-group" id="domainsFormGroup" style="display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputDomainsFinal" name="services" style="display:none;">
+                  <div id="domains"></div>
+              </div>
+          </div>
+          <div class="form-group" id="hostsFormGroup" style="display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputHostsFinal" name="services" style="display:none;">
+                  <div id="hosts"></div>
+              </div>
+          </div>
+          <div class="form-group" id="routesFormGroup" style="display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputRoutesFinal" name="services" style="display:none;">
+                  <div id="routes"></div>
+              </div>
+          </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">Environment Variables</label>
           <div class="col-sm-10">
@@ -218,18 +340,6 @@
             <div id="envVars"></div>
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="route" name="route"
-                data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" 
-                data-content="Sepcifies if you would like your application to have no route."> No Route
-              </label>
-            </div>
-          </div>
-        </div>
-        
         <div class="form-group">
         	<div class="row">
           <div class="col-sm-offset-2 col-sm-1">

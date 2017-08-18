@@ -16,7 +16,7 @@
 ---
 applications:
 - name: cf-manifest-generator
-  memory: 512M
+  memory: 1G
   instances: 1
   path: target/cf-manifest-generator-1.0.0-SNAPSHOT.jar
   buildpack: https://github.com/cloudfoundry/java-buildpack
