@@ -10,41 +10,35 @@
     <title>CF Manifest Generator</title>
 
     <!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    
+	<link rel="stylesheet" href="//getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/typeahead.css">
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
 
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-        <h3 class="text-muted">CF Manifest Generator</h3>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">PCF Manifest Generator</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="index.html"><a href="./">Home <span class="sr-only">(current)</span></a></li>
+                  <li><a href="about.html">About</a></li>
+              </ul>
+          </div><!-- nav-collapse -->
+      </div> <!-- container-fluid -->
+  </nav>
 
-      <div class="jumbotron">
-        <h1>Manifests Are Wicked Awesome!</h1>
-        <p class="lead">We all start off with simple cf push commands.  The next thing you know you need a drink after you type it out.  What happened?
-        No fear manifests can simplify things again!</p>
-      </div>
-      
-      <h2>Usage</h2>
+  <div class="container">
+      <h3>Usage</h3>
       <p>Fill out the form below and click the generate button to quickly construct your manifest.  Click the 
       Generate button to see what the manifest file will look like.  Once you are satisfied, click Download
       to save your generated manifest file.  Shazam!  Your cf push commands are
@@ -52,7 +46,7 @@
       <p>If you need help put, focus in any field to open the tooltip.  If you need more help see the
       Cloud Foundry <a href="http://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html" target="_blank">documentation</a> on manifests.</p>
       
-      <h2>Get Started!</h2>
+      <h3>Get Started!</h3>
       <form class="form-horizontal" action="download" method="post">
         <div class="form-group">
       	  <label id="appNameLabel" class="col-sm-2 control-label">App Name</label>
@@ -167,10 +161,10 @@
         </div>
           <div class="form-group">
               <label class="col-sm-2 control-label">No Route?</label>
-              <div class="col-sm-offset-2 col-sm-10">
+              <div class="col-sm-offset col-sm-10">
                   <div class="checkbox">
                       <label>
-                          <input type="checkbox" id="route" name="route"
+                          <input type="checkbox" id="noRoute" name="noRoute"
                                  data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
                                  data-content="Specifies if you would like your application to have no route.">
                       </label>
@@ -185,31 +179,48 @@
                          data-content="Specify a custom start health check HTTP endpoint for your application.">
               </div>
           </div>
-          <div class="form-group">
-              <label class="col-sm-2 control-label">Health Check HTTP Endpoint</label>
+          <!--<div class="form-group">
+              <label class="col-sm-2 control-label">Health Check Type (port [default], process or http)</label>
               <div class="col-sm-10">
                   <input class="form-control" id="inputHealthCheckType" placeholder="node app.js" name="healthCheckType"
                          data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
                          data-content="Specify a custom start health check type for your application.">
               </div>
+          </div> -->
+          <div class="form-group">
+              <label class="col-sm-2 control-label">Health Check Type (default: port)</label>
+              <div class="col-sm-10">
+                  <select id="inputHealthCheckType" class="form-control" name="healthCheckType"
+                          data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
+                          data-content="Specify the type of health check for your application.">
+                      <option value=""></option>
+                      <option value="port">port</option>
+                      <option value="process">process</option>
+                      <option value="http">http</option>
+                  </select>
+              </div>
           </div>
           <div class="form-group">
               <label class="col-sm-2 control-label">No Hostname</label>
-              <div class="col-sm-offset-2 col-sm-10">
+              <div class="col-sm-offset col-sm-10">
                   <div class="checkbox">
+                    <label>
                       <input type="checkbox" id="noHostname" name="noHostname"
                              data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
                              data-content="Sepcifies if you would like your application to have no hostname.">
+                    </label>
                   </div>
               </div>
           </div>
           <div class="form-group">
               <label class="col-sm-2 control-label">Random route?</label>
-              <div class="col-sm-offset-2 col-sm-10">
+              <div class="col-sm-offset col-sm-10">
                   <div class="checkbox">
-                      <input type="checkbox" id="randomRoute" name="randomRoute"
-                             data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
-                             data-content="Sepcifies if you would like your application to have a random route.">
+                      <label>
+                          <input type="checkbox" id="randomRoute" name="randomRoute"
+                                 data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover"
+                                 data-content="Sepcifies if you would like your application to have a random route.">
+                      </label>
                   </div>
               </div>
           </div>
@@ -226,7 +237,8 @@
           <div class="col-sm-10">
             <select id="inputStack" class="form-control" name="stack"
                     data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus"
-                    data-content="Specify the stack needed to run your app.">
+                    data-content="Specify the stack needed to run your app. Note: cf push defaults to cflinuxfs2. ">
+              <option value=""></option>
               <option value="cflinuxfs2">cflinuxfs2</option>
               <option value="windows2012R2">windows2012R2</option>
               <option value="lucid64">lucid64</option>
@@ -244,6 +256,13 @@
               </div>
           </div>
         </div>
+          <div class="form-group" id="servicesFormGroup" style="display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputServicesFinal" name="services" style="display:none;">
+                  <div id="services"></div>
+              </div>
+          </div>
           <div class="form-group">
               <label class="col-sm-2 control-label">Domains</label>
               <div class="col-sm-10">
@@ -253,6 +272,13 @@
                   <div class="addBtn">
                       <button class="btn btn-success" id="domainsAddBtn" type="button" disabled="disabled">Add</button>
                   </div>
+              </div>
+          </div>
+          <div class="form-group" id="domainsFormGroup" style="display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputDomainsFinal" name="domains" style="display:none;">
+                  <div id="domains"></div>
               </div>
           </div>
           <div class="form-group">
@@ -266,6 +292,13 @@
                   </div>
               </div>
           </div>
+          <div class="form-group" id="hostsFormGroup" style="display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="inputHostsFinal" name="hosts" style="display:none;">
+                  <div id="hosts"></div>
+              </div>
+          </div>
           <div class="form-group">
               <label class="col-sm-2 control-label">Routes</label>
               <div class="col-sm-10">
@@ -277,31 +310,10 @@
                   </div>
               </div>
           </div>
-        <div class="form-group" id="servicesFormGroup" style="display: none;">
-          <label class="col-sm-2 control-label"></label>
-          <div class="col-sm-10">
-          	 <input class="form-control" id="inputServicesFinal" name="services" style="display:none;">
-            <div id="services"></div>
-          </div>
-        </div>
-          <div class="form-group" id="domainsFormGroup" style="display: none;">
-              <label class="col-sm-2 control-label"></label>
-              <div class="col-sm-10">
-                  <input class="form-control" id="inputDomainsFinal" name="services" style="display:none;">
-                  <div id="domains"></div>
-              </div>
-          </div>
-          <div class="form-group" id="hostsFormGroup" style="display: none;">
-              <label class="col-sm-2 control-label"></label>
-              <div class="col-sm-10">
-                  <input class="form-control" id="inputHostsFinal" name="services" style="display:none;">
-                  <div id="hosts"></div>
-              </div>
-          </div>
           <div class="form-group" id="routesFormGroup" style="display: none;">
               <label class="col-sm-2 control-label"></label>
               <div class="col-sm-10">
-                  <input class="form-control" id="inputRoutesFinal" name="services" style="display:none;">
+                  <input class="form-control" id="inputRoutesFinal" name="routes" style="display:none;">
                   <div id="routes"></div>
               </div>
           </div>
@@ -364,7 +376,7 @@
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
    	<!-- Latest compiled and minified JavaScript -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="//getbootstrap.com/docs/3.3/dist/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.2/typeahead.bundle.js"></script>
 	<script src="js/app.js"></script>
   </body>

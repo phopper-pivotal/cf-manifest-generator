@@ -14,7 +14,6 @@ $(document).ready(function () {
         'https://github.com/friism/heroku-buildpack-mono', 'https://github.com/davidl-zend/zend-server-mysql-buildpack-dev',
         'https://github.com/tsl0922/java-buildpack', 'https://github.com/glyn/virgo-buildpack', 'https://github.com/heroku/heroku-buildpack-php',
         'https://github.com/iphoting/heroku-buildpack-php-tyler', 'https://github.com/heroku/heroku-buildpack-scala'];
-    var domains = ['cfapps.pez.pivotal.io', 'pezapp.io'];
 
     function htmlEncode(value) {
         //create a in-memory div, set it's inner text(which jQuery automatically encodes)
@@ -145,13 +144,13 @@ $(document).ready(function () {
     });
 
     $('#domainsAddBtn').click(function () {
-        var domains = htmlEncode($('#inputDomains').val());
+        var domainName = htmlEncode($('#inputDomains').val());
         $('#inputDomains').val('');
         $('#domainsAddBtn').attr('disabled', 'disabled');
-        var index = domains.push(serviceName) - 1;
-        var tag = createTag(serviceName, function (e) {
+        var index = domains.push(domainName) - 1;
+        var tag = createTag(domainName, function (e) {
             domains.splice(index, 1);
-            if (services.length == 0) {
+            if (domains.length == 0) {
                 $('#domainsFormGroup').hide();
             }
         });
@@ -161,13 +160,13 @@ $(document).ready(function () {
     });
 
     $('#hostsAddBtn').click(function () {
-        var hosts = htmlEncode($('#inputHosts').val());
+        var hostName = htmlEncode($('#inputHosts').val());
         $('#inputHosts').val('');
-        $('#serviceAddBtn').attr('disabled', 'disabled');
-        var index = hosts.push(serviceName) - 1;
-        var tag = createTag(serviceName, function (e) {
+        $('#hostsAddBtn').attr('disabled', 'disabled');
+        var index = hosts.push(hostName) - 1;
+        var tag = createTag(hostName, function (e) {
             hosts.splice(index, 1);
-            if (services.length == 0) {
+            if (hosts.length == 0) {
                 $('#hostsFormGroup').hide();
             }
         });
@@ -177,12 +176,12 @@ $(document).ready(function () {
     });
 
     $('#routesAddBtn').click(function () {
-        var routes = htmlEncode($('#inputRoutes').val());
+        var routeName = htmlEncode($('#inputRoutes').val());
         $('#inputRoutes').val('');
         $('#routesAddBtn').attr('disabled', 'disabled');
-        var index = routes.push(serviceName) - 1;
-        var tag = createTag(serviceName, function (e) {
-            services.splice(index, 1);
+        var index = routes.push(routeName) - 1;
+        var tag = createTag(routeName, function (e) {
+            routes.splice(index, 1);
             if (routes.length == 0) {
                 $('#routesFormGroup').hide();
             }
@@ -224,6 +223,7 @@ $(document).ready(function () {
                 "path": $('#inputPath').val().trim(),
                 "timeout": $('#inputTimeout').val().trim(),
                 "command": $('#inputCommand').val().trim(),
+                "noRoute": $('#noRoute').is(':checked'),
                 "healthCheckHttpEndpoint": $('#inputHealthCheckHttpEndpoint').val().trim(),
                 "healthCheckType": $('#inputhealthCheckType').val().trim(),
                 "noHostname": $('#noHostname').is(':checked'),
@@ -233,8 +233,7 @@ $(document).ready(function () {
                 "domains": domains,
                 "hosts": hosts,
                 "routes": routes,
-                "envVars": envVars,
-                "noRoute": $('#route').is(':checked')
+                "envVars": envVars
             }),
             contentType: "application/json"
         }).done(function (data) {
@@ -265,18 +264,6 @@ $(document).ready(function () {
     } else {
         $('#hostFormGroup').show();
     }
-
-    $('#inputDomain').typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        },
-        {
-            name: 'domains',
-            displayKey: 'value',
-            source: substringMatcher(domains)
-        });
-
 
     $('#inputBuildpack').typeahead({
             hint: true,
